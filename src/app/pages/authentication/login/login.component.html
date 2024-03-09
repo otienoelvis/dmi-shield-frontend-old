@@ -1,0 +1,57 @@
+<div class="blank-layout-container justify-content-center align-items-center bg-light-primary">
+  <div class="position-relative row w-100 h-100 bg-gredient justify-content-center">
+    <div class="col-lg-4 d-flex align-items-center">
+      <mat-card class="cardWithShadow boxed-auth">
+        <mat-card-content class="p-32">
+          <div class="text-center">
+            <a [routerLink]="['/dashboard']">
+              <img src="./assets/images/logos/logo-morlig.png" class="view-logo align-middle" style="width: 100px;"
+                alt="logo" />
+            </a>
+          </div>
+
+          <form class="m-t-30" name="form_user" id="form_user_authenticate" #AuthenticateUser="ngForm"
+            (ngSubmit)="submitInstance()">
+            <!-- Email -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Email Address</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput [formControl]="UserFormControls['user_email']" type="email"
+                [(ngModel)]="UserInstance.user_email" />
+
+              <mat-error *ngIf="UserFormControls['user_email'].hasError('required')">
+                <strong>Required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Password -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Password</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput [formControl]="UserFormControls['user_password']" [(ngModel)]="user_password"
+                [type]="hide ? 'password' : 'text'" />
+              <img matSuffix (click)="hide = !hide"
+                src="{{hide ? 'assets/images/icons/icon-eye-invisible--black.png' : 'assets/images/icons/icon-eye-visible--black.png'}}"
+                alt="" class="view-icon--image" />
+
+              <mat-error *ngIf="UserFormControls['user_password'].hasError('required')">
+                <strong>Required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <div class="view-align--right">
+              <button type="button" mat-button color="primary" (click)="resetPassword()">
+                Forgot Password?
+              </button>
+
+              <br />
+              <br />
+
+              <button type="submit" mat-raised-button color="primary">
+                Sign In
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
