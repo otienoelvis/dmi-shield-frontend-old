@@ -1,0 +1,17 @@
+<mat-toolbar class="topbar">
+  <!-- Mobile Menu -->
+  <button mat-icon-button (click)="toggleMobileNav.emit()" *ngIf="!showToggle">
+    <i-tabler name="menu-2" class="icon-20 d-flex"></i-tabler>
+  </button>
+
+  <a mat-flat-button class="d-flex justify-content-center" (click)="viewPrevious()">
+    <i-tabler class="d-flex" name="arrow-narrow-left"></i-tabler>
+  </a>
+
+  <span class="flex-1-auto"></span>
+
+  <a mat-flat-button color="primary" class="d-flex justify-content-center" [routerLink]="['users/view']"
+    (click)="awareness.setFocused('user', this.awareness.UserInstance._id)">
+    {{ this.awareness.UserInstance.user_name }}
+  </a>
+</mat-toolbar>
