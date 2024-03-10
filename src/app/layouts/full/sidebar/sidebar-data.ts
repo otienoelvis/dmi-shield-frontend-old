@@ -10,19 +10,6 @@ export const navItems: NavItem[] = [
     route: '/dashboard',
   },
   {
-    navCap: 'Response',
-  },
-  {
-    displayName: 'Cases',
-    iconImage: 'icon-cases_group-colored.png',
-    route: '/cases/composite',
-  },
-  {
-    displayName: 'Outbreaks',
-    iconImage: 'icon-outbreak-colored.png',
-    route: '/outbreaks/composite',
-  },
-  {
     navCap: 'Analytics',
   },
   {
