@@ -15,12 +15,20 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Cases',
     iconImage: 'icon-cases_group-colored.png',
-    route: '/cases/composite',
+    route: '/cases/composites',
   },
   {
     displayName: 'Outbreaks',
     iconImage: 'icon-outbreak-colored.png',
-    route: '/outbreaks/composite',
+    route: '/outbreaks/composites',
+  },
+  {
+    navCap: 'Surveillance',
+  },
+  {
+    displayName: 'Data',
+    iconImage: 'icon-table-black.png',
+    route: '/surveillance',
   },
   {
     navCap: 'Analytics',
@@ -35,6 +43,19 @@ export const navItems: NavItem[] = [
     iconImage: 'icon-dashboard-black.png',
     route: '/analytics/advanced'
   },
+  // {
+  //   navCap: 'Notifications',
+  // },
+  // {
+  //   displayName: 'Messages',
+  //   iconImage: 'icon-bell-ringing.png',
+  //   route: '#'
+  // },
+  // {
+  //   displayName: 'Warnings',
+  //   iconImage: 'icon-alert-triangle-filled.png',
+  //   route: '#'
+  // },
   {
     navCap: 'Settings',
   },

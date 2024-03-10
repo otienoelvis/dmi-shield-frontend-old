@@ -93,6 +93,11 @@ const routes: Routes = [
         canActivate: [AuthGuard], data: { roles: [1, 2, 3] },
         loadChildren: () =>
           import('./pages/mform_data/mform_data.module').then((m) => m.MFormDataModule),
+      },{
+        path: 'surveillance',
+        canActivate: [AuthGuard], data: { roles: [1, 2, 3] },
+        loadChildren: () =>
+          import('./pages/surveillance_data/surveillance_data.module').then((m) => m.Surveillance_dataModule),
       }
     ],
   },

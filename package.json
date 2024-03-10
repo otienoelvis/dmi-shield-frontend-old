@@ -33,6 +33,7 @@
     "apexcharts": "^3.40.0",
     "crypto-js": "^4.2.0",
     "ng-apexcharts": "1.7.6",
+    "ngx-file-drop": "^16.0.0",
     "ngx-scrollbar": "^11.0.0",
     "pouchdb": "^8.0.1",
     "pouchdb-find": "^8.0.1",
