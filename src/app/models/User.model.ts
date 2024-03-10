@@ -4,6 +4,7 @@ import { IModelDatabase, IModelFilter, IModelStatus } from "../interfaces/IModel
 import { v1 } from "uuid";
 import plugin from "pouchdb-find";
 import sha256 from 'crypto-js/sha256';
+import {IKeyValue} from "../interfaces/IKeyValue.model";
 
 PouchDB.plugin(plugin);
 
@@ -56,13 +57,16 @@ export class User {
   }
 
   mapInstance(_rev: string) {
-    let doc = {
+    let doc : IKeyValue = {
       "_id": this._id,
-      "_rev": _rev,
       "user_name": this.user_name,
       "user_email": this.user_email,
       "user_role": this.user_role,
       "user_password": this.user_password
+    }
+
+    if(_rev != "") {
+      doc['_rev'] = _rev;
     }
 
     return doc;
@@ -76,7 +80,7 @@ export class User {
     // Create ident
     if (this._id == "") { this._id = v1(); }
 
-    // Connect to remote 
+    // Connect to remote
     let db = new PouchDB(this.MDatabase.md_database);
 
     this.acquireInstance((doc: any) => {

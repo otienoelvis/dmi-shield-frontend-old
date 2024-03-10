@@ -3,6 +3,7 @@ import {config} from "../config/config";
 import PouchDB from "pouchdb";
 import plugin from "pouchdb-find";
 import {v1} from "uuid";
+import {IKeyValue} from "../interfaces/IKeyValue.model";
 
 PouchDB.plugin(plugin);
 
@@ -15,6 +16,8 @@ export class Surveillance {
   file_data_status: boolean = true;
   validated: boolean = true;
   deleted: boolean = false;
+  createdDate = Date.now();
+  modifiedDate: Date | null = null;
 
   MStatus: IModelStatus = {
     ms_processing:false,
@@ -30,8 +33,12 @@ export class Surveillance {
     md_database: config.COUCHDB_ALCHEMY + "/surveillance_data"
   }
 
+  updateModifiedDate(): void {
+    this.modifiedDate = new Date();
+  }
   constructor() {
   }
+
 
   parseInstance(doc: any){
     this._id = doc['_id']
@@ -41,6 +48,8 @@ export class Surveillance {
     this.file_header_status = doc['file_header_status']
     this.file_data_status = doc['file_data_status']
     this.validated = doc['validated']
+    this.createdDate = doc['createdDate']
+    this.modifiedDate = doc['modifiedDate']
     this.deleted = doc['deleted']
 
     return this;
@@ -49,19 +58,18 @@ export class Surveillance {
   parseComposite(rows: any){
     let CompositeSurveillanceData :Surveillance[] = [];
 
-    rows.forEach((row: any) =>{
-        let SurveillanceDataTemp = new Surveillance();
-        CompositeSurveillanceData.push(SurveillanceDataTemp.parseInstance(row))
-      }
-    );
+
+    rows.forEach((row: any) => {
+      let UserTemp = new Surveillance();
+      CompositeSurveillanceData.push(UserTemp.parseInstance(row))
+    });
 
     return CompositeSurveillanceData;
   }
 
   mapInstance(_rev: string){
-    let doc = {
+    let doc: IKeyValue = {
       "_id": this._id,
-      "_rev": _rev,
       "user_id": this.user_id,
       "file_original_name": this.file_original_name,
       "file_extension": this.file_extension,
@@ -69,6 +77,12 @@ export class Surveillance {
       "file_data_status": this.file_data_status,
       "validated": this.validated,
       "deleted": this.deleted,
+      "createdDate": this.createdDate,
+      "modifiedDate": this.modifiedDate,
+    }
+
+    if(_rev != "") {
+      doc['_rev'] = _rev;
     }
 
     return doc;
@@ -78,10 +92,6 @@ export class Surveillance {
     this.MStatus.ms_processing = true;
     let _rev: string = "";
 
-    // Create ident
-    if (this._id == "") { this._id = v1(); }
-
-    // Connect to remote
     let db = new PouchDB(this.MDatabase.md_database);
 
     this.acquireInstance((doc: any) => {
@@ -91,9 +101,12 @@ export class Surveillance {
         .then(res => {
           this.MStatus.ms_action_result = true;
           response(res);
+
         }).catch((err: any) => {
+
         error(err);
       }).finally(() => {
+        console.log("s->", this.mapInstance(_rev))
         this.MStatus.ms_processing = false;
       });
     });
@@ -101,7 +114,6 @@ export class Surveillance {
 
   async acquireInstance(success: any, error: any, finished: any = null){
     let db = new PouchDB(this.MDatabase.md_database)
-
     db.get(this._id)
       .then(function (doc){
         success(doc)
@@ -113,22 +125,25 @@ export class Surveillance {
   }
 
 
-  async acquireComposite(success: any, error: any){
-    let db = new PouchDB(this.MDatabase.md_database)
+  async acquireComposite(success: any, error: any) {
+    let remote_db = new PouchDB(this.MDatabase.md_database);
     let instance = this;
-    let Surveillance: Surveillance[] = []
+    let Surveillance: Surveillance[] = [];
 
-    db.createIndex({
+    remote_db.createIndex({
       index: {
         fields: ['file_original_name']
       }
     }).then((res: any) => {
-      db.find({
+      remote_db.find({
         selector: {
-          'file_original_name': { $regex: ".*" + this.MFilter.mf_search + ".*" }
+          'file_original_name': { $regex: ".*" + this.MFilter.mf_search + ".*" },
+          'deleted': false
         },
         sort: [{ 'file_original_name': 'asc' }]
       }).then(res => {
+
+        console.log("res", res.docs)
         Surveillance = instance.parseComposite(res.docs);
         success(Surveillance);
       }).catch(err => {

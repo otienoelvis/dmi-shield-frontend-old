@@ -12,21 +12,22 @@
   <mat-card-content>
     <mat-form-field appearance="outline" class="w-100" color="primary">
       <mat-label>Search</mat-label>
-      <input type="string" matInput [(ngModel)]="FilterUser.MFilter.mf_search" (change)="loadComposite()" />
+      <input type="string" matInput [(ngModel)]="FilterSurveillanceData.MFilter.mf_search" (change)="loadComposite()" />
     </mat-form-field>
 
-    <mat-card class="b-1 shadow-none view-card" *ngFor="let SeekUser of Users">
+    <mat-card class="b-1 shadow-none view-card" *ngFor="let File of Surveillance; let i = index;">
       <mat-card-content>
-        <a mat-stroked-button color="warn" class="view-button view-float--right" [routerLink]="">
+        <a mat-stroked-button color="warn" class="view-button view-float--right" (click) = "deleteInstance(File._id)">
           Delete
         </a>
 
+
         <a mat-stroked-button color="primary" class="view-button view-float--right" [routerLink]="">
-          Edit
+          View
         </a>
 
         <p class="view-text--size-large">
-          Monday File 15 March.csv
+          {{ File.file_original_name }}
         </p>
 
 

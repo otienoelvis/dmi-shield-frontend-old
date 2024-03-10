@@ -29,10 +29,13 @@
             Remove
           </a>
 
+          <a mat-stroked-button color="warn" class="view-button view-float--right" (click)="removeFile(i)">
+            Remove
+          </a>
+
           <p class="view-text--size-large">
             {{ File.fileEntry.name }}
           </p>
-
 
         </mat-card-content>
       </mat-card>
@@ -43,8 +46,11 @@
         <i-tabler *ngIf="MFieldInstance._action_result" class="view-icon--inline view-color--green" name="circle-check-filled">
 
         </i-tabler>
+<!--        <mat-error *ngIf="Files.length === 0">-->
+<!--          <strong>Required</strong>-->
+<!--        </mat-error>-->
 
-        <button type="submit" mat-flat-button color="primary" class="view-button">
+        <button type="submit" mat-flat-button color="primary" class="view-button" (click)="SubmitInstance()">
           {{MFieldInstance._id == '' ? 'Submit' : 'Update'}}
         </button>
       </div>

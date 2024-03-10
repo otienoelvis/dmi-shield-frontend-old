@@ -7,6 +7,12 @@ import {NgxFileDropEntry} from "ngx-file-drop";
 import {CompositeFormControls} from "../../../models/CompositeFormControls.model";
 import {FormControl, Validators} from "@angular/forms";
 import {Surveillance} from "../../../models/Surveillance.model";
+import {IModelStatus} from "../../../interfaces/IModel.model";
+import {v1, v4, v5} from "uuid";
+import {Guid} from "guid-typescript";
+// import * as fs from "fs";
+
+
 
 @Component({
   selector: 'app-modify',
@@ -14,13 +20,22 @@ import {Surveillance} from "../../../models/Surveillance.model";
 })
 export class ModifyComponent implements OnInit{
   MFieldInstance = new MField();
-  allowedFiles: string=  ".csv, .pdf, .docs, .xlsx, .xls"
+  allowedFiles: string=  ".csv, .pdf, .docx, .xlsx, .xls"
   public Files: NgxFileDropEntry[] = [];
   public UploadedFiles: File[] = [];
   SurveillanceFormControl : CompositeFormControls = {}
-  SurveillanceInstance = new  Surveillance();
+  SurveillanceDataList: Surveillance[] = [];
+  public newGuid: Guid;
 
-  constructor(private communication: CommunicationService, private awareness: AwarenessService, private http: HttpClient) { }
+  UIMStatus: IModelStatus = {
+    ms_processing:false,
+    ms_action_result: false
+  }
+
+  constructor(private communication: CommunicationService, private awareness: AwarenessService, private http: HttpClient)
+  {
+    this.newGuid = Guid.create()
+  }
 
   ngOnInit(): void {
     // this.seedInstance();
@@ -37,7 +52,7 @@ export class ModifyComponent implements OnInit{
   }
 
   seedInstance(){
-    this.SurveillanceFormControl["File"] = new FormControl(null, [Validators.required])
+    this.SurveillanceFormControl["FileType"] = new FormControl();
   }
 
   public dropped(files: NgxFileDropEntry[]) {
@@ -49,24 +64,14 @@ export class ModifyComponent implements OnInit{
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
 
-          // Here you can access the real file
-          console.log(droppedFile.relativePath, file);
+          // let content = file.stream();
+          //
+          // fs.WriteStream(content)
+          // fs.writeFileSync(file.name, 'jem' , 'utf-8');
+          // // this.functionDownload(fileStream).then(r => {
+          //
+          // // });
 
-          /**
-           // You could upload it like this:
-           const formData = new FormData()
-           formData.append('logo', file, relativePath)
-
-           // Headers
-           const headers = new HttpHeaders({
-           'security-token': 'mytoken'
-           })
-
-           this.http.post('https://mybackend.com/api/upload/sanitize-and-save-logo', formData, { headers: headers, responseType: 'blob' })
-           .subscribe(data => {
-           // Sanitized logo returned from backend
-           })
-           **/
 
         });
       } else {
@@ -76,6 +81,8 @@ export class ModifyComponent implements OnInit{
       }
     }
   }
+
+
 
   public fileOver(event: any){
     console.log(event);
@@ -88,5 +95,54 @@ export class ModifyComponent implements OnInit{
   removeFile(index: number) {
     this.Files.splice(index, 1);
   }
+
+  SubmitInstance(){
+    if(this.Files.length < 1){
+      this.UIMStatus.ms_action_result = true;
+      this.communication.showToast("Kindly add at least one file");
+    }
+
+
+    // let newGuid = v4();
+    let newGuid = Guid.create().toString();
+    let index = 0;
+    for (const file of this.Files) {
+      let SurveillanceInstance = new  Surveillance();
+
+      if (SurveillanceInstance._id == "")
+      {
+        // console.log(file.fileEntry.name, + "Created a new ")
+        // SurveillanceInstance._id =  newId;
+        SurveillanceInstance._id =  this.generateUniqueId();
+      }
+      SurveillanceInstance.file_original_name = file.fileEntry.name;
+      SurveillanceInstance.user_id = this.awareness.UserInstance._id;
+
+      const parts = file.fileEntry.name.split('.');
+      SurveillanceInstance.file_extension = parts[parts.length - 1];
+
+      SurveillanceInstance.putInstance((res: any) =>{
+        this.communication.showSuccessToast();
+
+        SurveillanceInstance.parseComposite(SurveillanceInstance);
+
+      }, (err: any) =>{
+        console.error('error', err)
+        console.log('finalList', this.SurveillanceDataList);
+        this.communication.showFailedToast();
+      });
+
+    }
+
+  }
+
+  generateUniqueId(){
+
+    let newId = Guid.create().toString();
+
+      return newId;
+  }
+
+
 
 }
