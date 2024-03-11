@@ -2,17 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {MField} from "../../../models/MField.model";
 import {CommunicationService} from "../../../services/communication.service";
 import {AwarenessService} from "../../../services/awareness.service";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {NgxFileDropEntry} from "ngx-file-drop";
 import {CompositeFormControls} from "../../../models/CompositeFormControls.model";
-import {FormControl, Validators} from "@angular/forms";
+import {FormControl} from "@angular/forms";
 import {Surveillance} from "../../../models/Surveillance.model";
 import {IModelStatus} from "../../../interfaces/IModel.model";
-import {v1, v4, v5} from "uuid";
 import {Guid} from "guid-typescript";
-// import * as fs from "fs";
-
-
 
 @Component({
   selector: 'app-modify',
@@ -25,7 +21,8 @@ export class ModifyComponent implements OnInit{
   public UploadedFiles: File[] = [];
   SurveillanceFormControl : CompositeFormControls = {}
   SurveillanceDataList: Surveillance[] = [];
-  public newGuid: Guid;
+  ValidatedFileTypes: string[] = ["csv", "xlsx", "xls"]
+  DocumentTypes: string[] = ["SARI", "CHOLERA", "POLIO"]
 
   UIMStatus: IModelStatus = {
     ms_processing:false,
@@ -34,7 +31,6 @@ export class ModifyComponent implements OnInit{
 
   constructor(private communication: CommunicationService, private awareness: AwarenessService, private http: HttpClient)
   {
-    this.newGuid = Guid.create()
   }
 
   ngOnInit(): void {
@@ -58,20 +54,22 @@ export class ModifyComponent implements OnInit{
   public dropped(files: NgxFileDropEntry[]) {
     this.Files = files;
     for (const droppedFile of files) {
-
-      // Is it a file?
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
+          // saveFile(file, file.name);
 
-          // let content = file.stream();
-          //
-          // fs.WriteStream(content)
-          // fs.writeFileSync(file.name, 'jem' , 'utf-8');
-          // // this.functionDownload(fileStream).then(r => {
-          //
-          // // });
+          let SurveillanceInstance = new  Surveillance();
+          if (SurveillanceInstance._id == "")
+          {
+            SurveillanceInstance._id =  this.generateUniqueId();
+          }
+          SurveillanceInstance.file_original_name = droppedFile.fileEntry.name;
+          SurveillanceInstance.user_id = this.awareness.UserInstance._id;
 
+          const parts = droppedFile.fileEntry.name.split('.');
+          SurveillanceInstance.file_extension = parts[parts.length - 1];
+          this.SurveillanceDataList.push(SurveillanceInstance);
 
         });
       } else {
@@ -102,25 +100,7 @@ export class ModifyComponent implements OnInit{
       this.communication.showToast("Kindly add at least one file");
     }
 
-
-    // let newGuid = v4();
-    let newGuid = Guid.create().toString();
-    let index = 0;
-    for (const file of this.Files) {
-      let SurveillanceInstance = new  Surveillance();
-
-      if (SurveillanceInstance._id == "")
-      {
-        // console.log(file.fileEntry.name, + "Created a new ")
-        // SurveillanceInstance._id =  newId;
-        SurveillanceInstance._id =  this.generateUniqueId();
-      }
-      SurveillanceInstance.file_original_name = file.fileEntry.name;
-      SurveillanceInstance.user_id = this.awareness.UserInstance._id;
-
-      const parts = file.fileEntry.name.split('.');
-      SurveillanceInstance.file_extension = parts[parts.length - 1];
-
+    for (const SurveillanceInstance of this.SurveillanceDataList) {
       SurveillanceInstance.putInstance((res: any) =>{
         this.communication.showSuccessToast();
 
@@ -134,15 +114,45 @@ export class ModifyComponent implements OnInit{
 
     }
 
+
+
   }
 
   generateUniqueId(){
-
-    let newId = Guid.create().toString();
-
-      return newId;
+    return Guid.create().toString();
   }
 
+  assignDocumentType(event: any, fileIndex: number): void {
+    this.SurveillanceDataList[fileIndex].file_type =  event.target.value;
+    console.log(this.SurveillanceDataList);
 
+  }
+
+  describeFileType(File: any): boolean {
+    const parts = File.fileEntry.name.split('.');
+    let extension = parts[parts.length - 1].toLowerCase();
+
+    if (this.ValidatedFileTypes && this.ValidatedFileTypes.includes(extension)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  validateFileHeaders(): boolean {
+
+
+
+    // Headers
+    const headers = new HttpHeaders({
+      'security-token': 'mytoken'
+    })
+
+    this.http.post('https://mybackend.com/api/upload/sanitize-and-save-logo', 'formData', { headers: headers, responseType: 'blob' })
+      .subscribe(data => {
+        // Sanitized logo returned from backend
+      })
+    return false;
+  }
 
 }

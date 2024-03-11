@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AwarenessService} from "../../../services/awareness.service";
-import {User} from "../../../models/User.model";
 import {Surveillance} from "../../../models/Surveillance.model";
 import {CommunicationService} from "../../../services/communication.service";
 
@@ -28,16 +27,19 @@ export class CompositeComponent implements OnInit{
     });
   }
 
-  deleteInstance(file_id: string){
+  deleteInstance(doc: any){
     let SurveillanceInstance = new  Surveillance();
 
-    SurveillanceInstance._id = file_id;
+    SurveillanceInstance = doc;
     SurveillanceInstance.deleted = true;
+    SurveillanceInstance.modifiedDate = SurveillanceInstance.updateModifiedDate();
 
     SurveillanceInstance.putInstance((res: any) =>{
       this.communication.showSuccessToast();
 
       SurveillanceInstance.parseComposite(SurveillanceInstance);
+
+      this.loadComposite();
 
     }, (err: any) =>{
       console.error('error', err)

@@ -14,6 +14,7 @@ export class Surveillance {
   file_extension: string = "";
   file_header_status: boolean = true;
   file_data_status: boolean = true;
+  file_type: string = "";
   validated: boolean = true;
   deleted: boolean = false;
   createdDate = Date.now();
@@ -33,8 +34,8 @@ export class Surveillance {
     md_database: config.COUCHDB_ALCHEMY + "/surveillance_data"
   }
 
-  updateModifiedDate(): void {
-    this.modifiedDate = new Date();
+  updateModifiedDate() {
+    return this.modifiedDate = new Date();
   }
   constructor() {
   }
@@ -47,6 +48,7 @@ export class Surveillance {
     this.file_extension = doc['file_extension']
     this.file_header_status = doc['file_header_status']
     this.file_data_status = doc['file_data_status']
+    this.file_type = doc['file_type']
     this.validated = doc['validated']
     this.createdDate = doc['createdDate']
     this.modifiedDate = doc['modifiedDate']
@@ -55,7 +57,7 @@ export class Surveillance {
     return this;
   }
 
-  parseComposite(rows: any){
+  parseComposites(rows: any){
     let CompositeSurveillanceData :Surveillance[] = [];
 
 
@@ -63,6 +65,22 @@ export class Surveillance {
       let UserTemp = new Surveillance();
       CompositeSurveillanceData.push(UserTemp.parseInstance(row))
     });
+
+    return CompositeSurveillanceData;
+  }
+
+  parseComposite(rows: any){
+    let CompositeSurveillanceData :Surveillance[] = [];
+
+    if (Array.isArray(rows)) {
+      rows.forEach((row: any) => {
+        let UserTemp = new Surveillance();
+        CompositeSurveillanceData.push(UserTemp.parseInstance(row));
+      });
+    } else {
+      let UserTemp = new Surveillance();
+      CompositeSurveillanceData.push(UserTemp.parseInstance(rows));
+    }
 
     return CompositeSurveillanceData;
   }
@@ -75,6 +93,7 @@ export class Surveillance {
       "file_extension": this.file_extension,
       "file_header_status": this.file_header_status,
       "file_data_status": this.file_data_status,
+      "file_type": this.file_type,
       "validated": this.validated,
       "deleted": this.deleted,
       "createdDate": this.createdDate,
