@@ -11,6 +11,23 @@
   <meta name="theme-color" content="#1976d2">
 
   <style>
+
+    .container {
+      height: 100vh;
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+
+    .nav {
+      position: fixed;
+      height: 50px;
+      display: flex;
+    }
+
+    .nav.hide-nav {
+      display: none; /* You can play on opacity for nice transitions*/
+    }
+
     .view-button {
       margin: 5px 5px 5px 0 !important;
     }

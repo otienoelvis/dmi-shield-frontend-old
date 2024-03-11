@@ -3,19 +3,18 @@ import { CommonModule } from '@angular/common';
 import {RouterModule} from "@angular/router";
 import {MaterialModule} from "../../material.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {SurveillanceDataRoutes} from "./home.routing";
 import {CFieldsModule} from "../cfields/cfields.module";
 import {TablerIconsModule} from "angular-tabler-icons";
 import {NgxFileDropModule} from "ngx-file-drop";
-import { WelvomeComponent } from './welcome/welvome/welvome.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import {HomeRoutes} from "./home.routing";
 
 
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(SurveillanceDataRoutes),
+    RouterModule.forChild(HomeRoutes),
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
@@ -24,10 +23,6 @@ import { WelcomeComponent } from './welcome/welcome.component';
     NgxFileDropModule
   ],
   declarations: [
-    // CompositeComponent,
-    // ModifyComponent
-  
-    WelvomeComponent,
     WelcomeComponent
   ]
 })

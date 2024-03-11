@@ -114,8 +114,6 @@ export class ModifyComponent implements OnInit{
 
     }
 
-
-
   }
 
   generateUniqueId(){

@@ -22,6 +22,8 @@ export class HeaderComponent implements OnInit {
   @Output() toggleMobileNav = new EventEmitter<void>();
   @Output() toggleMobileFilterNav = new EventEmitter<void>();
   @Output() toggleCollapsed = new EventEmitter<void>();
+  scrollTop = 0;
+  hideNav = false;
 
   showFiller = false;
 
@@ -34,5 +36,14 @@ export class HeaderComponent implements OnInit {
 
   viewPrevious() {
     this.location.back();
+  }
+
+  // onScroll($event: Event) {
+  //
+  // }
+
+  onScroll(event) {
+    this.hideNav = this.scrollTop < event.target.scrollTop;
+    this.scrollTop = event.target.scrollTop;
   }
 }
