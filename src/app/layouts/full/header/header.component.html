@@ -1,17 +1,35 @@
-<mat-toolbar class="topbar" (scroll)="onScroll($event)">
-  <!-- Mobile Menu -->
-  <button mat-icon-button (click)="toggleMobileNav.emit()" *ngIf="!showToggle">
-    <i-tabler name="menu-2" class="icon-20 d-flex"></i-tabler>
-  </button>
+<mat-toolbar>
 
-  <a mat-flat-button class="d-flex justify-content-center" (click)="viewPrevious()">
-    <i-tabler class="d-flex" name="arrow-narrow-left"></i-tabler>
-  </a>
 
-  <span class="flex-1-auto"></span>
+  <span>
+    <img class="shield-logo" src="https://s3-alpha-sig.figma.com/img/ec93/783c/5a1a8d55aa830eeb2fcdd9a93353c4d0?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=UxwpxaOfSzSr6oPsgzy50L4oS3cK4kvk5cmcsPMzRE7MRKU~sLZAnv8UuDwvvCrIAJdIoBLW6oouZ46HPXBShRHkjgNSnK5gZazjApqZ6VV7v4CXLDB1nK04oiDXk7lqPqCQ3hhn4rdaEMWcyOoNsjU5kjLsqT9qrasUc3J8TS0HNidzx3vdENHd62a2F8S-7AFHTaqFbF0YY1I5~UFfw31n9UkC3XHgkUyOwttcB2s0-gPuKZBUVXItljPwX8M7iF9aDEdXu9KGzshtk3ildf~fkxmVjcsf~zWTrtfnjZ0JrIw85ysaJ1VOVp1y9inQ8-H8UIgshc5nWOEu~KVrTw__" alt="Shield Logo">
+  </span>
 
-  <a mat-flat-button color="primary" class="d-flex justify-content-center" [routerLink]="['users/view']"
-    (click)="awareness.setFocused('user', this.awareness.UserInstance._id)">
-    {{ this.awareness.UserInstance.user_name }}
-  </a>
+  <div class="centered-toolbar ">
+    <a mat-button class="toolbar-text-size">Home</a>
+    <a mat-button class="toolbar-text-size">Dashboard</a>
+    <a mat-button class="toolbar-text-size">Resources</a>
+  </div>
+
+  <div class="right-aligned-options">
+    <button mat-raised-button class="raised-button-color">Sign In</button>
+  </div>
+
 </mat-toolbar>
+<!--<mat-toolbar class="topbar" (scroll)="onScroll($event)">-->
+<!--  &lt;!&ndash; Mobile Menu &ndash;&gt;-->
+<!--  <button mat-icon-button (click)="toggleMobileNav.emit()" *ngIf="!showToggle">-->
+<!--    <i-tabler name="menu-2" class="icon-20 d-flex"></i-tabler>-->
+<!--  </button>-->
+
+<!--  <a mat-flat-button class="d-flex justify-content-center" (click)="viewPrevious()">-->
+<!--    <i-tabler class="d-flex" name="arrow-narrow-left"></i-tabler>-->
+<!--  </a>-->
+
+<!--  <span class="flex-1-auto"></span>-->
+
+<!--  <a mat-flat-button color="primary" class="d-flex justify-content-center" [routerLink]="['users/view']"-->
+<!--    (click)="awareness.setFocused('user', this.awareness.UserInstance._id)">-->
+<!--    {{ this.awareness.UserInstance.user_name }}-->
+<!--  </a>-->
+<!--</mat-toolbar>-->

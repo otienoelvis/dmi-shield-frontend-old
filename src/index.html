@@ -12,6 +12,57 @@
 
   <style>
 
+    .welcome-container {
+      display: grid;
+      align-items: center;
+      grid-template-columns: 1fr 1fr 1fr;
+      column-gap: 5px;
+    }
+
+    .raised-button-color {
+      background-color: #FFA500;
+    }
+
+    .toolbar-text-size {
+      font-size: 20px;
+    }
+    .shield-logo {
+      width: 150px; /* Adjust the width as needed */
+      height: auto; /* Maintain aspect ratio */
+    }
+
+    .right-aligned-image {
+      float: right;
+      margin-left: 10px;
+      width: 692px;
+      height: auto;
+    }
+
+    .centered-options {
+      flex: 1 1 auto;
+      text-align: center;
+      /*display: flex;*/
+      /*justify-content: center;*/
+      /*align-items: center;*/
+    }
+
+    .right-aligned-options {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    mat-toolbar {
+      background-color: #FFA500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .spacer {
+      flex: 1 1 auto
+    }
+
     .container {
       height: 100vh;
       overflow-y: scroll;
