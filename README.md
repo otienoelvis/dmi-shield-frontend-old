@@ -21,5 +21,12 @@ User management, Integrated Dashboards, Upload of documents
     ng serve
     ```
 
+# Config.ts Example
+  ```
+    export const config = {
+COUCHDB_ALCHEMY: "https://<user_name>:<password>@host",
+FILE_PATH: ""
+};
+  ```
 
 
