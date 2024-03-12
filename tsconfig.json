@@ -25,15 +25,11 @@
       "ES2022",
       "dom"
     ],
-//    "typeRoots": ["node_modules/@types", "./src/@types/index.d.ts"],
-//    "types" : ["node"],
-//    "skipLibCheck": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
-//    "types" : ["node"],
   }
 }
