@@ -1,16 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import {Thresholds} from "../../../models/Thresholds.model";
+import {AwarenessService} from "../../../services/awareness.service";
+import {CommunicationService} from "../../../services/communication.service";
+import {User} from "../../../models/User.model";
 
 @Component({
   selector: 'app-composite',
   templateUrl: './composite.component.html',
-  styleUrls: ['./composite.component.scss']
 })
 export class CompositeComponent implements OnInit{
 
   Thresholds: Thresholds[] = [];
   FilterThresholds: Thresholds = new Thresholds;
-  constructor() {
+  constructor(public awareness: AwarenessService, private communication: CommunicationService,) {
   }
 
   ngOnInit() {
@@ -24,6 +26,27 @@ export class CompositeComponent implements OnInit{
     }, (error: any) => {
       // TODO! Handle errors
       console.log("Error", error);
+    });
+  }
+
+
+  deleteInstance(doc: any){
+    let Thresholds = this.FilterThresholds;
+
+    Thresholds = doc;
+    Thresholds.deleted = true;
+    Thresholds.modifiedDate = Thresholds.updateModifiedDate();
+
+    Thresholds.putInstance((res: any) =>{
+      this.communication.showSuccessToast();
+
+      Thresholds.parseComposite(Thresholds);
+
+      this.loadComposite();
+
+    }, (err: any) =>{
+      console.error('error', err)
+      this.communication.showFailedToast();
     });
   }
 }

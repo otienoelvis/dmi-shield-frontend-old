@@ -136,12 +136,12 @@ export class Thresholds {
 
     remote_db.createIndex({
       index: {
-        fields: ['file_original_name']
+        fields: ['threshold_name']
       }
     }).then((res: any) => {
       remote_db.find({
         selector: {
-          'file_original_name': { $regex: ".*" + this.MFilter.mf_search + ".*" },
+          'threshold_name': { $regex: ".*" + this.MFilter.mf_search + ".*" },
           'deleted': false
         },
         sort: [{ 'file_original_name': 'asc' }]

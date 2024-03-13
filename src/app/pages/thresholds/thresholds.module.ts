@@ -7,7 +7,6 @@ import {CompositeComponent} from "./composite/composite.component";
 import {ModifyComponent} from "./modify/modify.component";
 import {CFieldsModule} from "../cfields/cfields.module";
 import {TablerIconsModule} from "angular-tabler-icons";
-import {NgxFileDropModule} from "ngx-file-drop";
 import {ThresholdsRoutes} from "./thresholds.routing";
 
 
