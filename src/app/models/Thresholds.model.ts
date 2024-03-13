@@ -10,7 +10,7 @@ export class Thresholds {
   _id: string = "";
   created_By: string = "";
   threshold_name: string = "";
-  limit: string = "";
+  threshold_limit: string = "";
   deleted: boolean = false;
   createdDate = Date.now();
   modifiedDate: Date | null = null;
@@ -40,6 +40,7 @@ export class Thresholds {
     this._id = doc['_id']
     this.created_By = doc['created_By']
     this.threshold_name = doc['threshold_name']
+    this.threshold_limit = doc['threshold_limit']
     this.createdDate = doc['createdDate']
     this.modifiedDate = doc['modifiedDate']
     this.deleted = doc['deleted']
@@ -60,25 +61,26 @@ export class Thresholds {
   }
 
   parseComposite(rows: any){
-    let CompositeSurveillanceData :Thresholds[] = [];
+    let CompositeThresholds :Thresholds[] = [];
 
     if (Array.isArray(rows)) {
       rows.forEach((row: any) => {
         let UserTemp = new Thresholds();
-        CompositeSurveillanceData.push(UserTemp.parseInstance(row));
+        CompositeThresholds.push(UserTemp.parseInstance(row));
       });
     } else {
       let UserTemp = new Thresholds();
-      CompositeSurveillanceData.push(UserTemp.parseInstance(rows));
+      CompositeThresholds.push(UserTemp.parseInstance(rows));
     }
 
-    return CompositeSurveillanceData;
+    return CompositeThresholds;
   }
 
   mapInstance(_rev: string){
     let doc: IKeyValue = {
       "_id": this._id,
       "threshold_name": this.threshold_name,
+      "threshold_limit": this.threshold_limit,
       "created_By": this.created_By,
       "deleted": this.deleted,
       "createdDate": this.createdDate,
@@ -144,7 +146,7 @@ export class Thresholds {
           'threshold_name': { $regex: ".*" + this.MFilter.mf_search + ".*" },
           'deleted': false
         },
-        sort: [{ 'file_original_name': 'asc' }]
+        sort: [{ 'threshold_name': 'asc' }]
       }).then(res => {
 
         console.log("res", res.docs)

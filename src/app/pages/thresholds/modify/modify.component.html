@@ -1,1 +1,49 @@
-<p>modify works!</p>
+<mat-card class="cardWithShadow">
+  <mat-card-header>
+    <mat-card-title>
+      <h3>
+        {{ThresholdsInstance._id == '' ? 'Threshold' : ThresholdsInstance.threshold_name}}
+      </h3>
+    </mat-card-title>
+
+    <mat-card-subtitle>
+      <p>
+        {{ThresholdsInstance._id == '' ? 'Create' : 'Edit'}}
+      </p>
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form class="m-t-30" name="form_user" id="form_user_modify" #ModifyUser="ngForm" (ngSubmit)="submitInstance()">
+      <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Name</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <input matInput [formControl]="ThresholdsFormControls['threshold_name']" [(ngModel)]="ThresholdsInstance.threshold_name" />
+
+        <mat-error *ngIf="ThresholdsFormControls['threshold_name'].hasError('required')">
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Limit</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <input matInput [formControl]="ThresholdsFormControls['threshold_limit']" type="email"
+               [(ngModel)]="ThresholdsInstance.threshold_limit" />
+
+        <mat-error *ngIf="ThresholdsFormControls['threshold_limit'].hasError('required')">
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <div class="view-align--right">
+        <mat-spinner *ngIf="ThresholdsInstance.MStatus.ms_processing" class="view-spinner--inline"></mat-spinner>
+
+        <i-tabler *ngIf="ThresholdsInstance.MStatus.ms_action_result" class="view-icon--inline view-color--green"
+                  name="circle-check-filled"></i-tabler>
+
+        <button type="submit" mat-flat-button color="primary">
+          {{ThresholdsInstance._id == '' ? 'Create' : 'Update'}}
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
