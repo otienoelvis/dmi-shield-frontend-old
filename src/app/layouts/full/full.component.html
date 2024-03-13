@@ -1,28 +1,40 @@
+<div style="margin: 1rem;">
 <mat-sidenav-container
   class="mainWrapper blue_theme light-theme"
   autosize
   autoFocus
   dir="ltr"
+  >
 
-  style=" border-radius: 8px; width: 100%; background: linear-gradient(180deg, rgba(21, 165, 202, 0.00) 0%, #15A5CA 100%);padding: 2rem;">
+  <mat-sidenav-content class="" >
+    <main class="maxWidth" >
 
->
-  <mat-sidenav-content class="p-l-48 p-r-48">
-    <main class=" maxWidth">
-
-      <app-header
-        [showToggle]="!isOver"
-        (toggleCollapsed)="toggleCollapsed()"
-        (toggleMobileNav)="sidenav.toggle()"
-      ></app-header>
-      <div class="m-t-30">
-        <!-- ============================================================== -->
-        <!-- Outlet -->
-        <!-- ============================================================== -->
-        <router-outlet></router-outlet>
+      <div class="main-container">
+        <app-header
+          [showToggle]="!isOver"
+          (toggleCollapsed)="toggleCollapsed()"
+          (toggleMobileNav)="sidenav.toggle()"
+        ></app-header>
+        <div class="m-t-30">
+          <!-- ============================================================== -->
+          <!-- Outlet -->
+          <!-- ============================================================== -->
+          <router-outlet></router-outlet>
+        </div>
       </div>
+
+
+      <section style="width: 100%; min-height: 30vh;">
+
+      </section>
     </main>
 
+    <footer class="custom-footer">
+      <app-footer>
+      </app-footer>
+    </footer>
   </mat-sidenav-content>
 
 </mat-sidenav-container>
+
+</div>

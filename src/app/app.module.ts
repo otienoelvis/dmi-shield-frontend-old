@@ -26,6 +26,7 @@ import { BrandingComponent } from './layouts/full/sidebar/branding.component';
 import { AppNavItemComponent } from './layouts/full/sidebar/nav-item/nav-item.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {FooterComponent} from "./layouts/full/footer/footer.component";
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     SidebarComponent,
     HeaderComponent,
     BrandingComponent,
-    AppNavItemComponent
+    AppNavItemComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
