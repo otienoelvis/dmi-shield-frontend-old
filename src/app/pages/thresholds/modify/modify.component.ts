@@ -57,6 +57,8 @@ export class ModifyComponent implements OnInit{
     if (this.ThresholdsInstance._id == "")
     {
       this.ThresholdsInstance._id =  this.generateUniqueId();
+    }else{
+      this.ThresholdsInstance.modifiedDate = this.ThresholdsInstance.updateModifiedDate();
     }
 
     if (is_valid) {

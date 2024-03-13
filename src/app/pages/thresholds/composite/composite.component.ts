@@ -29,17 +29,16 @@ export class CompositeComponent implements OnInit{
   }
 
 
-  deleteInstance(doc: any){
-    let Thresholds = this.FilterThresholds;
+  deleteInstance(doc: Thresholds){
 
-    Thresholds = doc;
-    Thresholds.deleted = true;
-    Thresholds.modifiedDate = Thresholds.updateModifiedDate();
+    this.FilterThresholds = doc;
+    this.FilterThresholds.deleted = true;
+    this.FilterThresholds.modifiedDate = this.FilterThresholds.updateModifiedDate();
 
-    Thresholds.putInstance((res: any) =>{
+    this.FilterThresholds.putInstance((res: any) =>{
       this.communication.showSuccessToast();
 
-      Thresholds.parseComposite(Thresholds);
+      this.FilterThresholds.parseComposite(this.FilterThresholds);
 
       this.loadComposite();
 

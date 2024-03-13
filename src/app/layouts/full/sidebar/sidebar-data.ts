@@ -18,11 +18,6 @@ export const navItems: NavItem[] = [
     route: '/thresholds/composites',
   },
   {
-    displayName: 'Outbreaks',
-    iconImage: 'icon-outbreak-colored.png',
-    route: '/outbreaks/composites',
-  },
-  {
     navCap: 'Surveillance',
   },
   {
