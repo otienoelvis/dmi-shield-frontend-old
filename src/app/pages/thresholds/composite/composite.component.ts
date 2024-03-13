@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Thresholds} from "../../../models/Thresholds.model";
 import {AwarenessService} from "../../../services/awareness.service";
 import {CommunicationService} from "../../../services/communication.service";
-import {User} from "../../../models/User.model";
 
 @Component({
   selector: 'app-composite',

@@ -1,4 +1,4 @@
-import {Component, OnInit, signal} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AwarenessService} from "../../../services/awareness.service";
 import {Surveillance} from "../../../models/Surveillance.model";
 import {CommunicationService} from "../../../services/communication.service";

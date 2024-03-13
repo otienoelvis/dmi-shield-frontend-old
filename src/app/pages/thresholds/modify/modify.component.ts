@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AwarenessService} from "../../../services/awareness.service";
-import {User} from "../../../models/User.model";
 import {CompositeFormControls} from "../../../models/CompositeFormControls.model";
 import {Thresholds} from "../../../models/Thresholds.model";
 import {CommunicationService} from "../../../services/communication.service";

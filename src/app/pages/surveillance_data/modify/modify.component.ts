@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MField} from "../../../models/MField.model";
 import {CommunicationService} from "../../../services/communication.service";
 import {AwarenessService} from "../../../services/awareness.service";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {NgxFileDropEntry} from "ngx-file-drop";
 import {CompositeFormControls} from "../../../models/CompositeFormControls.model";
 import {FormControl} from "@angular/forms";
