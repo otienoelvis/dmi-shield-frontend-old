@@ -8,7 +8,7 @@ import {ModifyComponent} from "./modify/modify.component";
 import {CFieldsModule} from "../cfields/cfields.module";
 import {TablerIconsModule} from "angular-tabler-icons";
 import {ThresholdsRoutes} from "./thresholds.routing";
-
+import {MatTableModule} from '@angular/material/table';
 
 
 @NgModule({
@@ -19,7 +19,8 @@ import {ThresholdsRoutes} from "./thresholds.routing";
     FormsModule,
     ReactiveFormsModule,
     CFieldsModule,
-    TablerIconsModule
+    TablerIconsModule,
+    MatTableModule
   ],
   declarations: [
     CompositeComponent,

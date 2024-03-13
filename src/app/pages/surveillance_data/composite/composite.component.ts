@@ -10,6 +10,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class CompositeComponent implements OnInit{
   Surveillance: Surveillance[] = [];
+  TableHeaders: string[] = [ "file_original_name", "file_type", "validated", "createdDate", "actions"];
   SurveillanceInstance: Surveillance;
   FilesIdList: string[] = [];
   FilterSurveillanceData: Surveillance = new Surveillance();
@@ -93,5 +94,16 @@ export class CompositeComponent implements OnInit{
 
   submitInstance() {
 
+  }
+
+  parseDate(timestamp: number): string {
+    return new Date(timestamp).toLocaleString();
+  }
+
+  getValidityStatus(status: boolean): string{
+    if(status === true){
+      return "Valid";
+    }
+    return "Invalid";
   }
 }

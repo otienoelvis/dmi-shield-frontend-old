@@ -10,6 +10,7 @@ import {CommunicationService} from "../../../services/communication.service";
 export class CompositeComponent implements OnInit{
 
   Thresholds: Thresholds[] = [];
+  TableHeaders: string[] = ["threshold_name", "threshold_limit", "createdDate"];
   FilterThresholds: Thresholds = new Thresholds;
   constructor(public awareness: AwarenessService, private communication: CommunicationService,) {
   }
@@ -21,7 +22,6 @@ export class CompositeComponent implements OnInit{
   loadComposite() {
     this.FilterThresholds.acquireComposite((Thresholds: Thresholds[]) => {
       this.Thresholds = Thresholds;
-      console.log("Allll", this.Thresholds);
     }, (error: any) => {
       // TODO! Handle errors
       console.log("Error", error);
@@ -46,5 +46,9 @@ export class CompositeComponent implements OnInit{
       console.error('error', err)
       this.communication.showFailedToast();
     });
+  }
+
+  parseDate(timestamp: number): string {
+    return new Date(timestamp).toLocaleString();
   }
 }
