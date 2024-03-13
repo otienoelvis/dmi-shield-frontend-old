@@ -35,7 +35,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     SidebarComponent,
     HeaderComponent,
     BrandingComponent,
-    AppNavItemComponent
+    AppNavItemComponent,
   ],
   imports: [
     BrowserModule,

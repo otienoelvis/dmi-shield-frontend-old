@@ -22,7 +22,7 @@
         </a>
 
 
-        <a mat-stroked-button color="primary" class="view-button view-float--right" [routerLink]="">
+        <a mat-stroked-button color="primary" class="view-button view-float--right" (click)="downloadFile(File)">
           View
         </a>
 
@@ -33,41 +33,6 @@
 
       </mat-card-content>
     </mat-card>
-<!--    <div class="table-responsive">-->
-<!--      <table>-->
-<!--        <thead class=" text-primary">-->
-<!--          <th>Ref No</th>-->
-<!--          <th>File Name</th>-->
-<!--          <th>Date Uploaded</th>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <mat-card class="b-1 shadow-none view-card" *ngFor="let SeekUser of Users">-->
-<!--          <mat-card-content>-->
-<!--            <tr>-->
-<!--              <td>-->
-<!--                <p class="view-text&#45;&#45;size-large">-->
-<!--                  Monday File 15 March.csv-->
-<!--                </p>-->
-<!--              </td>-->
-<!--              <td>-->
-<!--                <a mat-stroked-button color="warn" class="view-button" [routerLink]="">-->
-<!--                  Delete-->
-<!--                </a>-->
-<!--              </td>-->
-<!--              <td>-->
-<!--                <a mat-stroked-button color="warn" class="view-button" [routerLink]="">-->
-<!--                  12th December-->
-<!--                </a>-->
-<!--              </td>-->
-<!--            </tr>-->
-<!--&lt;!&ndash;            <a mat-stroked-button color="primary" class="view-button view-float&#45;&#45;right" [routerLink]="">&ndash;&gt;-->
-<!--&lt;!&ndash;              Edit&ndash;&gt;-->
-<!--&lt;!&ndash;            </a>&ndash;&gt;-->
-<!--          </mat-card-content>-->
-<!--        </mat-card>-->
 
-<!--        </tbody>-->
-<!--      </table>-->
-<!--    </div>-->
   </mat-card-content>
 </mat-card>

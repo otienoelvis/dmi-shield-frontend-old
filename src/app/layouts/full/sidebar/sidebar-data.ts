@@ -10,12 +10,12 @@ export const navItems: NavItem[] = [
     route: '/dashboard',
   },
   {
-    navCap: 'Response',
+    navCap: 'Limits',
   },
   {
-    displayName: 'Cases',
+    displayName: 'Thresholds',
     iconImage: 'icon-cases_group-colored.png',
-    route: '/cases/composites',
+    route: '/thresholds/composites',
   },
   {
     displayName: 'Outbreaks',
@@ -31,31 +31,13 @@ export const navItems: NavItem[] = [
     route: '/surveillance',
   },
   {
-    navCap: 'Analytics',
+    navCap: 'Notifications',
   },
   {
-    displayName: 'Simple',
-    iconImage: 'icon-table-black.png',
-    route: '/analytics/simple',
+    displayName: 'Messages',
+    iconImage: 'icon-alert-triangle-filled.png',
+    route: '#'
   },
-  {
-    displayName: 'Advanced',
-    iconImage: 'icon-dashboard-black.png',
-    route: '/analytics/advanced'
-  },
-  // {
-  //   navCap: 'Notifications',
-  // },
-  // {
-  //   displayName: 'Messages',
-  //   iconImage: 'icon-bell-ringing.png',
-  //   route: '#'
-  // },
-  // {
-  //   displayName: 'Warnings',
-  //   iconImage: 'icon-alert-triangle-filled.png',
-  //   route: '#'
-  // },
   {
     navCap: 'Settings',
   },

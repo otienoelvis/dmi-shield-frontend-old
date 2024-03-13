@@ -98,6 +98,11 @@ const routes: Routes = [
         canActivate: [AuthGuard], data: { roles: [1, 2, 3] },
         loadChildren: () =>
           import('./pages/surveillance_data/surveillance_data.module').then((m) => m.Surveillance_dataModule),
+      },{
+        path: 'thresholds',
+        canActivate: [AuthGuard], data: { roles: [1, 2, 3] },
+        loadChildren: () =>
+          import('./pages/thresholds/thresholds.module').then((m) => m.ThresholdsModule),
       }
     ],
   },
