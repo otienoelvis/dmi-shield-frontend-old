@@ -10,6 +10,7 @@ export const navItems: NavItem[] = [
     route: '/dashboard',
   },
   {
+
     navCap: 'Limits',
   },
   {
@@ -24,6 +25,7 @@ export const navItems: NavItem[] = [
     displayName: 'Data',
     iconImage: 'icon-table-black.png',
     route: '/surveillance',
+    navCap: 'Analytics',
   },
   {
     navCap: 'Notifications',
