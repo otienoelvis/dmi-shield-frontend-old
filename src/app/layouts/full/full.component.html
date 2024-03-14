@@ -9,12 +9,13 @@
   <mat-sidenav-content class="" >
     <main class="maxWidth" >
 
-      <div class="main-container">
-        <app-header
-          [showToggle]="!isOver"
-          (toggleCollapsed)="toggleCollapsed()"
-          (toggleMobileNav)="sidenav.toggle()"
-        ></app-header>
+      <app-header
+        [showToggle]="!isOver"
+        (toggleCollapsed)="toggleCollapsed()"
+        (toggleMobileNav)="sidenav.toggle()"
+      ></app-header>
+      <div class="">
+
         <div class="m-t-30">
           <!-- ============================================================== -->
           <!-- Outlet -->
@@ -24,9 +25,9 @@
       </div>
 
 
-      <section style="width: 100%; min-height: 30vh;">
+<!--      <section style="width: 100%; min-height: 30vh;">-->
 
-      </section>
+<!--      </section>-->
     </main>
 
     <footer class="custom-footer">

@@ -26,12 +26,23 @@ export class HeaderComponent implements OnInit {
   hideNav = false;
 
   showFiller = false;
+  UserInstance: User = new User();
 
   constructor(public dialog: MatDialog, public awareness: AwarenessService, private location: Location) {
 
   }
   ngOnInit(): void {
+    this.awareness.awaken(() => {
+      this.UserInstance._id = this.awareness.getFocused("user");
 
+      if (this.UserInstance._id != "") {
+        this.UserInstance.acquireInstance((doc: any) => {
+          this.UserInstance.parseInstance(doc);
+        }, (err: any) => {
+          // TODO! Handle errors
+        });
+      }
+    });
   }
 
   viewPrevious() {

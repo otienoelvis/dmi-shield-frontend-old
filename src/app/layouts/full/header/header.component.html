@@ -10,14 +10,24 @@
     <span class="toolbar-text">Resources</span>
   </div>
 
-  <div>
-    <a style="text-decoration: none;" [routerLink]="['/authentication/login']">
-      <button
-        style="display: flex; width: 122px; height: 39px; padding: 0px 25px;  justify-content: center; align-items: center; gap: 10px; flex-shrink: 0; border-radius: 8px; background: var(--Accent-Orange, #FFA500); border: 0; color: white; font-weight: 700; font-size: large;">Sign
+<!--  <div *ngIf="UserInstance._id; else signUpLoginButton">-->
+<!--  <div >-->
+<!--    <a style="text-decoration: none;" [routerLink]="['/authentication/login']">-->
+<!--      <button               class="toolbar-sign-button">Sign-->
+<!--        In</button>-->
+<!--    </a>-->
+<!--  </div>-->
+  <div >
+    <a style="text-decoration: none;" [routerLink]="['/surveillance/composite']">
+      <button               class="toolbar-sign-button">Sign
         In</button>
     </a>
-
   </div>
+
+<!--  <ng-template #signUpLoginButton>-->
+<!--    <div class="E" style="color: black; font-size: 20px; font-family: Lato, sans-serif; font-weight: 800; line-height: 32px; word-wrap: break-word">E</div>-->
+
+<!--  </ng-template>-->
 
 </mat-toolbar>
 

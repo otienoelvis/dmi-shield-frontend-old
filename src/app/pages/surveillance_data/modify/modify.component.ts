@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MField} from "../../../models/MField.model";
 import {CommunicationService} from "../../../services/communication.service";
 import {AwarenessService} from "../../../services/awareness.service";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {NgxFileDropEntry} from "ngx-file-drop";
 import {CompositeFormControls} from "../../../models/CompositeFormControls.model";
 import {FormControl} from "@angular/forms";
@@ -18,7 +18,7 @@ export class ModifyComponent implements OnInit{
   MFieldInstance = new MField();
   allowedFiles: string=  ".csv, .pdf, .docx, .xlsx, .xls"
   public Files: NgxFileDropEntry[] = [];
-  public UploadedFiles: File[] = [];
+  public UploadedFiles: any;
   SurveillanceFormControl : CompositeFormControls = {}
   SurveillanceDataList: Surveillance[] = [];
   ValidatedFileTypes: string[] = ["csv", "xlsx", "xls"]
@@ -57,7 +57,6 @@ export class ModifyComponent implements OnInit{
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
-          // saveFile(file, file.name);
 
           let SurveillanceInstance = new  Surveillance();
           if (SurveillanceInstance._id == "")
@@ -70,6 +69,8 @@ export class ModifyComponent implements OnInit{
           const parts = droppedFile.fileEntry.name.split('.');
           SurveillanceInstance.file_extension = parts[parts.length - 1];
           this.SurveillanceDataList.push(SurveillanceInstance);
+
+          this.uploadFile(file, SurveillanceInstance._id);
 
         });
       } else {
@@ -108,11 +109,12 @@ export class ModifyComponent implements OnInit{
 
       }, (err: any) =>{
         console.error('error', err)
-        console.log('finalList', this.SurveillanceDataList);
         this.communication.showFailedToast();
       });
 
     }
+
+
 
   }
 
@@ -137,20 +139,22 @@ export class ModifyComponent implements OnInit{
     return false;
   }
 
-  validateFileHeaders(): boolean {
+  uploadFile(file: File, fileId: string): boolean {
+    const formData = new FormData();
+    formData.append("file", file);
 
-
-
-    // Headers
-    const headers = new HttpHeaders({
-      'security-token': 'mytoken'
-    })
-
-    this.http.post('https://mybackend.com/api/upload/sanitize-and-save-logo', 'formData', { headers: headers, responseType: 'blob' })
-      .subscribe(data => {
-        // Sanitized logo returned from backend
+    this.http.post(`http://localhost:3000/upload?file_id=${fileId}`, formData,
+      {
+        responseType: 'blob'
       })
-    return false;
+      .subscribe(data => {
+        // Handle response data here if needed
+        console.log(data);
+      });
+
+    return true;
   }
+
+
 
 }
