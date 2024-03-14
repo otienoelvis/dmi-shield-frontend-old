@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AwarenessService } from 'src/app/services/awareness.service';
 import { User } from 'src/app/models/User.model';
 import { Location } from '@angular/common';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -28,7 +29,7 @@ export class HeaderComponent implements OnInit {
   showFiller = false;
   UserInstance: User = new User();
 
-  constructor(public dialog: MatDialog, public awareness: AwarenessService, private location: Location) {
+  constructor(private router: Router, public dialog: MatDialog, public awareness: AwarenessService, private location: Location) {
 
   }
   ngOnInit(): void {
@@ -56,5 +57,13 @@ export class HeaderComponent implements OnInit {
   onScroll(event) {
     this.hideNav = this.scrollTop < event.target.scrollTop;
     this.scrollTop = event.target.scrollTop;
+  }
+
+  onClick(action: any) {
+    if (action == "logout") {
+      this.awareness.setFocused("authenticated", "", (res: any) => {
+        this.router.navigate(['/authentication']);
+      });
+    }
   }
 }
